@@ -66,4 +66,18 @@ export class EmployeeComponent implements OnInit {
   onEdit(emp: Employee) {
     this.employeeService.selectedEmployee = emp;
   }
+
+  onDelete(_id: string, form: NgForm) {
+    if (confirm('sure to delete?') === true) {
+      this.employeeService.deleteEmployee(_id)
+        .subscribe((res) => {
+          this.refreshEmployeeList();
+          this.resetForm(form);
+          M.toast({
+            html: 'Deleted',
+            classes: 'rounded'
+          })
+        })
+    }
+  }
 }
